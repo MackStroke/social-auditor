@@ -1,16 +1,15 @@
 import { NextResponse } from "next/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-// Initialize Gemini API (Uses GEMINI_API_KEY from environment or request headers)
+// Initialize Gemini API (Uses user's API Key from Authorization header)
 export const maxDuration = 60; // Allow more time for Next.js AI processing
 
 export async function POST(req: Request) {
   try {
-    const clientKey = req.headers.get("Authorization")?.replace("Bearer ", "");
-    const apiKey = clientKey || process.env.GEMINI_API_KEY;
+    const apiKey = req.headers.get("Authorization")?.replace("Bearer ", "");
 
     if (!apiKey) {
-      return NextResponse.json({ error: "Missing Gemini API Key. Set one in Settings or .env.local" }, { status: 500 });
+      return NextResponse.json({ error: "Missing Gemini API Key. Please enter your Gemini API Key in Settings." }, { status: 401 });
     }
 
     const genAI = new GoogleGenerativeAI(apiKey);

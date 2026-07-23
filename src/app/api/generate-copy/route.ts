@@ -5,11 +5,10 @@ export const maxDuration = 60;
 
 export async function POST(req: Request) {
     try {
-        const clientKey = req.headers.get("Authorization")?.replace("Bearer ", "");
-        const apiKey = clientKey || process.env.GEMINI_API_KEY;
+        const apiKey = req.headers.get("Authorization")?.replace("Bearer ", "");
 
         if (!apiKey) {
-            return NextResponse.json({ error: "Missing Gemini API Key." }, { status: 500 });
+            return NextResponse.json({ error: "Missing Gemini API Key. Please enter your Gemini API Key in Settings." }, { status: 401 });
         }
 
         const genAI = new GoogleGenerativeAI(apiKey);

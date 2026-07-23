@@ -1,6 +1,9 @@
-const fs = require('fs');
-const env = fs.readFileSync('.env.local', 'utf8');
-const key = env.match(/GEMINI_API_KEY=(.*)/)[1].trim();
+const key = process.argv[2] || process.env.GEMINI_API_KEY;
+
+if (!key) {
+    console.error("Usage: node list-models.js <GEMINI_API_KEY>");
+    process.exit(1);
+}
 
 async function fetchRawModels() {
     try {
