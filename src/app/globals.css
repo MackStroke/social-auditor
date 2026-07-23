@@ -1,0 +1,124 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+/* stylelint-disable-next-line css-ruleorselectorexpected */
+@theme inline {
+  --color-primary: #1877F2;
+  --color-primary-hover: #166FE5;
+  --color-background-light: #F0F2F5;
+  --color-background-dark: #090E17;
+  --color-surface-dark: #111827;
+  --color-surface-glass: rgba(17, 24, 39, 0.7);
+  --font-display: var(--font-manrope);
+
+  --color-background: var(--color-background-dark);
+  --color-foreground: #F8FAFC;
+  /* slate-50 */
+  --color-brand: var(--color-primary);
+  --color-brand-hover: var(--color-primary-hover);
+  --color-card: var(--color-surface-dark);
+  --color-card-border: rgba(255, 255, 255, 0.08);
+
+  --color-success: #10b981;
+  --color-success-bg: rgba(16, 185, 129, 0.1);
+  --color-warning: #f59e0b;
+  --color-warning-bg: rgba(245, 158, 11, 0.1);
+  --color-danger: #ef4444;
+  --color-danger-bg: rgba(239, 68, 68, 0.1);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+:root {
+  color-scheme: light;
+}
+
+.dark {
+  color-scheme: dark;
+}
+
+body {
+  font-family: var(--font-sans), sans-serif;
+  background-image: radial-gradient(circle at 50% 0%, rgba(24, 119, 242, 0.08), transparent 50%);
+  background-repeat: no-repeat;
+  min-height: 100vh;
+}
+
+.dark body {
+  background-image: radial-gradient(circle at 50% 0%, rgba(24, 119, 242, 0.15), transparent 50%);
+}
+
+/* Custom select option styles for dark mode WCAG compliance */
+select option {
+  padding: 8px;
+  /* Improve tap target */
+}
+
+.dark select option {
+  background-color: var(--color-surface-dark);
+}
+
+/* Hide scrollbar for Webkit based browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for standard browsers (Firefox) and MS (IE 10+) */
+* {
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Custom Scrollbar Utility */
+@layer utilities {
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+@media print {
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  @page {
+    margin: 0.5cm;
+  }
+
+  html,
+  body {
+    height: auto !important;
+    overflow: visible !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}
