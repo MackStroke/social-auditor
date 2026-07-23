@@ -2,7 +2,6 @@ import type { NextConfig } from "next";
 
 // @ts-ignore - Next.js 16 types are missing this top-level property
 const nextConfig: NextConfig = {
-  output: "standalone",
   images: {
     remotePatterns: [
       {
